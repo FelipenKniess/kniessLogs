@@ -1,6 +1,16 @@
 const pool = require('../db');
 
 module.exports = async (req, res) => {
+  // Configura CORS
+  res.setHeader('Access-Control-Allow-Origin', 'https://demo.myrp.com.br'); // ou '*'
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Trata requisições preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ erro: 'Método não permitido' });
   }
